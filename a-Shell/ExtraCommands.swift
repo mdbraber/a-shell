@@ -728,12 +728,12 @@ public func listBookmarks(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutableP
     }
     let commandName = String(cString: commandNameC)
     let usage = "Usage: " + commandName + " (show all bookmarks) \n" + commandName + " shortName (show bookmark for shortName)\n"
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
     // if (groupNamesDictionary != nil) {
     //    storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
-    // let groupBookmarksDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "fileBookmarks")
+    // let groupBookmarksDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "fileBookmarks")
     var storedBookmarksDictionary =  UserDefaults.standard.dictionary(forKey: "fileBookmarks") ?? [:]
     // if (groupBookmarksDictionary != nil) {
     //    storedBookmarksDictionary.merge(groupBookmarksDictionary!, uniquingKeysWith: { (current, _) in current })
@@ -810,9 +810,9 @@ public func listBookmarks(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutableP
     }
     if (mustUpdateDictionaries) {
         UserDefaults.standard.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
-        UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
+        UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
         UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-        UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+        UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
     }
     return 0
 }
@@ -821,12 +821,12 @@ public func checkBookmarks() {
     // At startup, go through list of bookmarks, check that they are still valid, remove them otherwise
     // and add "home", "shortcuts" and "group".
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     // if (groupNamesDictionary != nil) {
     //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
     var storedBookmarksDictionary = UserDefaults.standard.dictionary(forKey: "fileBookmarks") ?? [:]
-    // let groupBookmarksDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "fileBookmarks")
+    // let groupBookmarksDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "fileBookmarks")
     // if (groupBookmarksDictionary != nil) {
     //     storedBookmarksDictionary.merge(groupBookmarksDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -873,7 +873,7 @@ public func checkBookmarks() {
         mutableNamesDictionary[""] = homeUrl.path
     }
     let storedShortcuts = mutableNamesDictionary["shortcuts"] as? String
-    let shortcutsPath = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path
+    let shortcutsPath = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path
     if (storedShortcuts == nil) || (storedShortcuts != shortcutsPath) {
         mutableNamesDictionary["shortcuts"] = shortcutsPath
     }
@@ -893,8 +893,8 @@ public func checkBookmarks() {
     }
     UserDefaults.standard.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
     UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-    UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
-    UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+    UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
+    UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
 }
 
 @_cdecl("renamemark")
@@ -907,7 +907,7 @@ public func renamemark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePoin
     let commandName = String(cString: commandNameC)
     let usage = "Usage: " + commandName + " oldName newName\n"
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     // if (groupNamesDictionary != nil) {
     //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -931,7 +931,7 @@ public func renamemark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePoin
     mutableNamesDictionary[newKey] = urlPath
     
     UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-    UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+    UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
    return 0
 }
 
@@ -968,7 +968,7 @@ public func bookmark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePointe
         name = fileURL.lastPathComponent
     }
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     // if (groupNamesDictionary != nil) {
     //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -991,7 +991,7 @@ public func bookmark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePointe
     }
     mutableNamesDictionary.updateValue(filePath, forKey: newName)
     UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-    UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+    UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
     fputs("Bookmarked as \(newName).\n", thread_stderr)
     return 0
 }
@@ -1007,7 +1007,7 @@ public func deletemark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePoin
     let commandName = String(cString: commandNameC)
     let usage = "Usage: " + commandName + " name [name1 name2 name3...] or " + commandName + " --all\n"
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     // if (groupNamesDictionary != nil) {
     //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -1036,7 +1036,7 @@ public func deletemark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePoin
                                                   create: true)
         let homeUrl = documentsUrl.deletingLastPathComponent()
         mutableNamesDictionary["home"] = homeUrl.path
-        let shortcutsPath = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path
+        let shortcutsPath = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path
         mutableNamesDictionary["shortcuts"] = shortcutsPath
         mutableNamesDictionary["group"] = shortcutsPath
         if let iCloudUrl = FileManager().url(forUbiquityContainerIdentifier: nil) {
@@ -1062,7 +1062,7 @@ public func deletemark(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePoin
     }
     if (mustUpdateDictionary) {
         UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-        UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+        UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
     }
     return 0
 }
@@ -1264,7 +1264,7 @@ public func changeDirectory(path: String) -> Bool {
     }
     // We could not change directory. Is it something we bookmarked?
     var storedBookmarksDictionary = UserDefaults.standard.dictionary(forKey: "fileBookmarks") ?? [:]
-    // var groupBookmarksDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "fileBookmarks")
+    // var groupBookmarksDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "fileBookmarks")
     // if (groupBookmarksDictionary != nil) {
     //     storedBookmarksDictionary.merge(groupBookmarksDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -1348,7 +1348,7 @@ public func changeDirectory(path: String) -> Bool {
             storedBookmarksDictionary.removeValue(forKey: staleBookmark)
         }
         UserDefaults.standard.set(storedBookmarksDictionary, forKey: "fileBookmarks")
-        UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(storedBookmarksDictionary, forKey: "fileBookmarks")
+        UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(storedBookmarksDictionary, forKey: "fileBookmarks")
     }
     fclose(thread_stderr)
     thread_stderr = old_thread_stderr
@@ -1379,7 +1379,7 @@ public func jump(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePointer<In
         return 0
     }
     var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-    // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+    // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
     // if (groupNamesDictionary != nil) {
     //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
     // }
@@ -1404,7 +1404,7 @@ public func jump(argc: Int32, argv: UnsafeMutablePointer<UnsafeMutablePointer<In
             fputs("jump: bookmark for \(name) is no longer valid.\n", thread_stderr)
             storedNamesDictionary.removeValue(forKey: name)
             UserDefaults.standard.set(storedNamesDictionary, forKey: "bookmarkNames")
-            UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(storedNamesDictionary, forKey: "bookmarkNames")
+            UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(storedNamesDictionary, forKey: "bookmarkNames")
         }
     }
     return 0

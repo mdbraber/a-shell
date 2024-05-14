@@ -2268,7 +2268,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
         }
         // Can't create/close windows through ios_system, because it creates/closes a new session.
         if (actualCommand == "newWindow") {
-            let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.OpenDirectory")
+            let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.OpenDirectory")
             activity.userInfo!["url"] = URL(fileURLWithPath: FileManager().currentDirectoryPath)
             UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil)
             printPrompt() // Needed to show that the window is ready for a new command
@@ -2687,7 +2687,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
             ios_switchSession(savedSession)
         } else if (cmd.hasPrefix("listBookmarks:") || cmd.hasPrefix("listBookmarksDir:")) {
             let storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-            // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+            // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
             // if (groupNamesDictionary != nil) {
             //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
             // }
@@ -2762,7 +2762,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                         }
                     } else {
                         var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-                        // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+                        // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
                         // if (groupNamesDictionary != nil) {
                         //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
                         // }
@@ -3087,14 +3087,14 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                                                         includingResourceValuesForKeys: nil,
                                                         relativeTo: nil)
             let storedBookmarksDictionary =  UserDefaults.standard.dictionary(forKey: "fileBookmarks") ?? [:]
-            // let groupBookmarksDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "fileBookmarks")
+            // let groupBookmarksDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "fileBookmarks")
             // if (groupBookmarksDictionary != nil) {
             //     storedBookmarksDictionary.merge(groupBookmarksDictionary!, uniquingKeysWith: { (current, _) in current })
             // }
             var mutableBookmarkDictionary : [String:Any] = storedBookmarksDictionary
             mutableBookmarkDictionary.updateValue(fileBookmark, forKey: fileURL.path)
             UserDefaults.standard.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
-            UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
+            UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableBookmarkDictionary, forKey: "fileBookmarks")
         }
         catch {
             NSLog("Could not bookmark this file: \(fileURL)")
@@ -3103,7 +3103,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
     
     func storeName(fileURL: URL, name: String) {
         var storedNamesDictionary = UserDefaults.standard.dictionary(forKey: "bookmarkNames") ?? [:]
-        // let groupNamesDictionary = UserDefaults(suiteName: "group.AsheKube.a-Shell")?.dictionary(forKey: "bookmarkNames")
+        // let groupNamesDictionary = UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.dictionary(forKey: "bookmarkNames")
         // if (groupNamesDictionary != nil) {
         //     storedNamesDictionary.merge(groupNamesDictionary!, uniquingKeysWith: { (current, _) in current })
         // }
@@ -3128,7 +3128,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
         var mutableNamesDictionary : [String:Any] = storedNamesDictionary
         mutableNamesDictionary.updateValue(fileURL.path, forKey: newName)
         UserDefaults.standard.set(mutableNamesDictionary, forKey: "bookmarkNames")
-        UserDefaults(suiteName: "group.AsheKube.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
+        UserDefaults(suiteName: "group.com.mdbraber.a-Shell")?.set(mutableNamesDictionary, forKey: "bookmarkNames")
         if (thread_stderr != nil) {
             fputs("Bookmarked as \(newName).\n", thread_stderr)
         }
@@ -3136,7 +3136,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         NSLog("Scene, continue: userActivity.activityType = \(userActivity.activityType)")
-        if userActivity.activityType == "AsheKube.app.a-Shell.ExecuteCommand" {
+        if userActivity.activityType == "com.mdbraber.a-Shell.ExecuteCommand" {
             // NSLog("scene/continue, userActivity.userInfo = \(userActivity.userInfo)")
             if (currentCommand != "") {
                 // a command is already running in this window. Open a new one:
@@ -3145,7 +3145,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
             }
             // set directory to a safer place:
             resetDirectoryAfterCommandTerminates = FileManager().currentDirectoryPath
-            if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+            if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
                 changeDirectory(path: groupUrl.path)
             }
             if let fileURL: NSURL = userActivity.userInfo!["url"] as? NSURL {
@@ -3443,7 +3443,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                     // Same reason we can't print the shortcut that is about to be executed.
                     // Set the working directory to somewhere safe:
                     // (but do not reset afterwards, since this is a new window)
-                    if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+                    if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
                         changeDirectory(path: groupUrl.path)
                     }
                     // We wait until the window is fully initialized. This will be used when "resendCommand:" is triggered, at the end of window setting.
@@ -3459,7 +3459,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                 // NSLog("Type: \(userActivity.activityType)")
                 // NSLog("URL: \(userActivity.userInfo!["url"])")
                 // NSLog("UserInfo: \(userActivity.userInfo!)")
-                if (userActivity.activityType == "AsheKube.app.a-Shell.EditDocument") {
+                if (userActivity.activityType == "com.mdbraber.a-Shell.EditDocument") {
                     self.closeAfterCommandTerminates = true
                     window.makeKeyAndVisible() // We need it a 2nd time for keyboard to resize itself.
                     installQueue.async {
@@ -3472,20 +3472,20 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                             inputFileURLBackup = nil
                         }
                     }
-                } else if (userActivity.activityType == "AsheKube.app.a-Shell.OpenDirectory") {
+                } else if (userActivity.activityType == "com.mdbraber.a-Shell.OpenDirectory") {
                     if let fileURL: NSURL = userActivity.userInfo!["url"] as? NSURL {
                         //  ???
                         // .removingPercentEncoding ??
                         changeDirectory(path: fileURL.path!) // call cd_main and checks secured bookmarked URLs
                         closeAfterCommandTerminates = false
                     }
-                } else if (userActivity.activityType == "AsheKube.app.a-Shell.ExecuteCommand") {
+                } else if (userActivity.activityType == "com.mdbraber.a-Shell.ExecuteCommand") {
                     // If the app wasn't running, we arrive here:
                     // This can be either from open URL (ashell:command) or from Shortcuts
                     // Set working directory to a safer place (also used by shortcuts):
                     // But do not reset afterwards, since this is a new window
                     NSLog("Scene, willConnectTo: userActivity.userInfo = \(userActivity.userInfo)")
-                    if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+                    if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
                         changeDirectory(path: groupUrl.path)
                     }
                     if let fileURL: NSURL = userActivity.userInfo!["url"] as? NSURL {
@@ -3504,7 +3504,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                             }
                             // We can't go through executeCommand because the window is not fully created yet.
                             // Same reason we can't print the shortcut that is about to be executed.
-                            if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+                            if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
                                 changeDirectory(path: groupUrl.path)
                                 NSLog("groupUrl: " + groupUrl.path)
                             }
@@ -3548,7 +3548,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                 NSLog("We received an URL in openURLContexts: \(fileURL.absoluteString.removingPercentEncoding)") // received "ashell://ls"
                 if (UIDevice.current.model.hasPrefix("iPad")) {
                     // iPad, so always open a new window to execute the command
-                    let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.ExecuteCommand")
+                    let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.ExecuteCommand")
                     activity.userInfo!["url"] = fileURL
                     // create a window and execute the command:
                     UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil)
@@ -3561,7 +3561,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                     }
                     command = command.removingPercentEncoding!
                     installQueue.async {
-                        if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+                        if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
                             changeDirectory(path: groupUrl.path)
                         }
                         self.executeCommand(command: command)
@@ -3595,7 +3595,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
                 // it's a directory.
                 // TODO: customize the command (cd, other?)
                 if (UIDevice.current.model.hasPrefix("iPad")) {
-                    let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.OpenDirectory")
+                    let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.OpenDirectory")
                     activity.userInfo!["url"] = fileURL
                     UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil)
                 } else {
@@ -3618,7 +3618,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
             } else {
                 // TODO: customize the command (vim, microemacs, python, clang, TeX?)
                 //  NSLog("Storing URL: \(fileURL.path)")
-                let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.EditDocument")
+                let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.EditDocument")
                 activity.userInfo!["url"] = fileURL
                 inputFileURLBackup = fileURL // userActivity sometimes forgets the URL for iCloud files
                 // Open a new tab in Vim:
@@ -3839,9 +3839,9 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
         // Was this window created with a purpose?
         let userActivity = scene.userActivity
         // Do not restore if a command is already running.
-        if (userActivity?.activityType == "AsheKube.app.a-Shell.ExecuteCommand") { return }
-        if (userActivity?.activityType == "AsheKube.app.a-Shell.EditDocument") { return }
-        if (userActivity?.activityType == "AsheKube.app.a-Shell.OpenDirectory") { return }
+        if (userActivity?.activityType == "com.mdbraber.a-Shell.ExecuteCommand") { return }
+        if (userActivity?.activityType == "com.mdbraber.a-Shell.EditDocument") { return }
+        if (userActivity?.activityType == "com.mdbraber.a-Shell.OpenDirectory") { return }
         // Otherwise, go for it:
         NSLog("sceneWillEnterForeground: \(self.persistentIdentifier). userActivity: \(userActivity)")
         if (!toolbarShouldBeShown) {
@@ -4238,7 +4238,7 @@ class SceneDelegate: UIViewController, UIWindowSceneDelegate, WKNavigationDelega
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         NSLog("sceneDidEnterBackground: \(self.persistentIdentifier).")
-        scene.session.stateRestorationActivity = NSUserActivity(activityType: "AsheKube.app.a-Shell.TermSession")
+        scene.session.stateRestorationActivity = NSUserActivity(activityType: "com.mdbraber.a-Shell.TermSession")
         if (currentDirectory == "") {
             currentDirectory = FileManager().currentDirectoryPath
         }

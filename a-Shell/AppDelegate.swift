@@ -186,8 +186,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setenv("COLORTERM", "truecolor", 1) // tell programs that we can display 16-bit colors (required by Python package rich).
         setenv("SSL_CERT_FILE", Bundle.main.resourcePath! +  "/cacert.pem", 1); // SLL cacert.pem in $APPDIR/cacert.pem
         setenv("MAGIC", Bundle.main.resourcePath! +  "/usr/share/magic.mgc", 1); // magic file for file command
-        setenv("SHORTCUTS", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path, 1) // directory used by shortcuts
-        setenv("GROUP", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path, 1) // directory used by shortcuts
+        setenv("SHORTCUTS", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path, 1) // directory used by shortcuts
+        setenv("GROUP", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path, 1) // directory used by shortcuts
         setenv("MANPATH", Bundle.main.resourcePath! +  "/man:" + libraryURL.path + "/man", 1)
         setenv("PAGER", "less", 1) // send control sequences directly to terminal
         setenv("MAGICK_HOME", Bundle.main.resourcePath! +  "/ImageMagick-7", 1)
@@ -589,7 +589,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, continue userActivity: NSUserActivity,
                      restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         NSLog("AppDelegate, continue, userActivity.activityType = \(userActivity.activityType)")
-        if userActivity.activityType == "AsheKube.app.a-Shell.ExecuteCommand",
+        if userActivity.activityType == "com.mdbraber.a-Shell.ExecuteCommand",
             let intent = userActivity.interaction?.intent as? ExecuteCommandIntent {
             NSLog("We received the shortcut! \(intent)")
         }

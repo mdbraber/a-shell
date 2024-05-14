@@ -56,7 +56,7 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
     }
         
     func handle(intent: PutFileIntent, completion: @escaping (PutFileIntentResponse) -> Void) {
-        guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") else {
+        guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") else {
             completion(PutFileIntentResponse(code: .failureRequiringAppLaunch, userActivity: nil))
             return
         }
@@ -125,7 +125,7 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
     }
     
     func handle(intent: GetFileIntent, completion: @escaping (GetFileIntentResponse) -> Void) {
-        guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") else {
+        guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") else {
             completion(GetFileIntentResponse(code: .failureRequiringAppLaunch, userActivity: nil))
             return
         }
@@ -222,7 +222,7 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
                     if (open == .open) { break }
                 }
             }
-            guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") else { completion(ExecuteCommandIntentResponse(code: .failureRequiringAppLaunch, userActivity: nil))
+            guard let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") else { completion(ExecuteCommandIntentResponse(code: .failureRequiringAppLaunch, userActivity: nil))
                 return
             }
             if (open == .close) {
@@ -239,7 +239,7 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
                 var intentResponse: ExecuteCommandIntentResponse
                 // If keepGoing is set, don't stop the Shortcut even if the commands have failed.
                 if (result == 0 || ((keepGoing != nil) && keepGoing!)) {
-                    let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.ExecuteCommand")
+                    let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.ExecuteCommand")
                     intentResponse = ExecuteCommandIntentResponse(code: .success, userActivity: activity)
                 } else {
                     intentResponse = ExecuteCommandIntentResponse(code: .failure, userActivity: nil)
@@ -255,7 +255,7 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
                         urlString += string + "%0A" // newline
                     }
                 }
-                let activity = NSUserActivity(activityType: "AsheKube.app.a-Shell.ExecuteCommand")
+                let activity = NSUserActivity(activityType: "com.mdbraber.a-Shell.ExecuteCommand")
                 activity.userInfo!["url"] = URL(string: "ashell:" + urlString)
                 // NSLog("Starting the app with command: " + (urlString.removingPercentEncoding ?? "<could not convert>"))
                 completion(ExecuteCommandIntentResponse(code: .continueInApp, userActivity: activity))
@@ -305,16 +305,16 @@ class IntentHandler: INExtension, ExecuteCommandIntentHandling, GetFileIntentHan
         setenv("MAGICK_CONFIGURE_PATH", mainAppResourceURL.path +  "/ImageMagick-7/config", 1)
         setenv("TZ", TimeZone.current.identifier, 1) // TimeZone information, since "systemsetup -gettimezone" won't work.
         setenv("SSL_CERT_FILE", mainAppResourceURL.path +  "/cacert.pem", 1); // SLL cacert.pem in $APPDIR/cacert.pem
-        setenv("SHORTCUTS", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path, 1) // directory used by shortcuts
-        setenv("GROUP", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.path, 1) // directory used by shortcuts
-        setenv("PYTHONUSERBASE", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.appendingPathComponent("Library").path, 1) // Python packages for extension
+        setenv("SHORTCUTS", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path, 1) // directory used by shortcuts
+        setenv("GROUP", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.path, 1) // directory used by shortcuts
+        setenv("PYTHONUSERBASE", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.appendingPathComponent("Library").path, 1) // Python packages for extension
         // Compiled files: ~/Library/__pycache__
-        setenv("PYTHONPYCACHEPREFIX", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell")?.appendingPathComponent("Library").appendingPathComponent("__pycache__").path.toCString(), 1)
+        setenv("PYTHONPYCACHEPREFIX", FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell")?.appendingPathComponent("Library").appendingPathComponent("__pycache__").path.toCString(), 1)
         numPythonInterpreters = 2; // so pip can work (it runs python setup.py). Some packages, eg nexusforge need 3 interpreters.
         // PATH: $APPDIR/bin:$APPDIR/Library/bin:$SHORTCUTS/Library/bin:$SHORTCUTS/bin:$PATH
         var newPath = mainAppResourceURL.appendingPathComponent("bin").path
         + ":" + mainAppResourceURL.appendingPathComponent("Library").appendingPathComponent("bin").path
-        if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.AsheKube.a-Shell") {
+        if let groupUrl = FileManager().containerURL(forSecurityApplicationGroupIdentifier:"group.com.mdbraber.a-Shell") {
             newPath = newPath + ":" + groupUrl.appendingPathComponent("Library").appendingPathComponent("bin").path
             newPath = newPath + ":" + groupUrl.appendingPathComponent("bin").path
         }

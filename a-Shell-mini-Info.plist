@@ -71,7 +71,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>AsheKube.app.a-Shell</string>
+			<string>com.mdbraber.a-Shell</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ashell</string>
@@ -81,7 +81,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>AsheKube.app.a-Shell</string>
+			<string>com.mdbraber.a-Shell</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ashellmini</string>
@@ -123,7 +123,7 @@
 	<string>a-Shell mini would like to access to your photo library to view images</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.AsheKube.app.a-Shell</key>
+		<key>iCloud.com.mdbraber.a-Shell</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
