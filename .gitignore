@@ -75,3 +75,9 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# macOS stuff
+.DS_Store
+
+# Don't include cpython (submodule)
+cpython/
